@@ -32,3 +32,42 @@ commit;
 
 select nvl(max(no) , 0)
 from book;
+
+create table board (
+    num number primary key,
+    pwd varchar2(255) ,
+    email varchar2(200) not  null,
+    m_text varchar2(255) not null,
+    reg_date date not null
+    
+);
+
+drop table board;
+
+select * from board;
+
+insert into board values(1 , '1111' ,  '111@naver.com' , '본문이요1' , sysdate);
+insert into board values(2 , '12' ,  '12@naver.com' , '본문이요2' , sysdate);
+insert into board values(3 , '123' ,  '123@naver.com' , '본문이요3' , sysdate);
+insert into board values(4 , '1234' ,  '1234@naver.com' , '본문이요4' , sysdate);
+insert into board values(5 , '12345' ,  '12345@naver.com' , '본문이요5' , sysdate);
+insert into board values(6 , '123456' ,  '123456@naver.com' , '본문이요6' , sysdate);
+
+select * from (
+    select rownum rnum , data.* from (
+    select num , pwd , email , m_text , to_char(reg_date , 'YYYY.MM.DD') reg_date 
+    from board
+    where email like '%%'
+    order by reg_date desc
+    )data
+);
+
+select nvl(count(*) , 0)
+from board
+where email like '%%';
+
+select num , pwd , email , m_text , to_char(reg_date , 'YYYY.MM.DD') reg_date 
+from board
+where num = 1;
+
+
